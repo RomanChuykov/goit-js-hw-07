@@ -47,26 +47,36 @@ list.innerHTML=html;
   
 // });
 //===========================================================
+let instance;
 list.addEventListener('click',e=>{
     if (e.target.nodeName!='IMG') {
       return
     }
-    const instance = basicLightbox.create(`
+    e.preventDefault();
+    instance = basicLightbox.create(`
         <img src="${e.target.closest('a').href}" width="800" height="600">
-    `)
-  //   lightbox.classList.add('active');
-  //   const img=document.createElement('img');
-  //   img.src=e.target.closest('a').href;
-  //   img.className='lightimg'
-  //   lightbox.appendChild(img);
+    `,{
+      onShow: (instance) => {window.addEventListener("keydown",listener)},
+	    onClose: (instance) => {window.removeEventListener("keydown",listener)}
+    })
+
   instance.show()
     
   });
 
-  window.addEventListener('keydown', (e) => {
+   const listener=(e) => 
+   
+   
+   
+   {
     if (e.key=='Escape') {
       const lightbox=document.querySelector('.basicLightbox');
-      lightbox.remove();
+      if (lightbox!=null) {
+        
+       //lightbox.remove();
 
+       instance.close()
+      }
     }
-	})
+    console.log(e.key)
+	};

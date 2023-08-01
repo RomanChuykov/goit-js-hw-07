@@ -15,22 +15,27 @@ for(const image of galleryItems){
       src="${image.preview}"
       data-source="${image.original}"
       alt="${image.description}"
+      
     />
   </a>
 </li>  `;
 };
 list.innerHTML=html;
 
-list.addEventListener('click',e=>{
-  if (e.target.nodeName!='IMG') {
-    return
-  }
-  let gallery = new SimpleLightbox('.gallery a');
-  gallery.on('show.simplelightbox', function () {
-    console.log(gallery)
-  });
-});
+// list.addEventListener('click',e=>{
+//   if (e.target.nodeName!='IMG') {
+//     return
+//   }
+//   e.preventDefault();
+//   gallery.on('show.simplelightbox', function () {
+//     console.log(gallery)
+//   });
+// });
 
+let gallery = new SimpleLightbox('.gallery a',{
+   captionsData:'alt',
+   captionDelay:250,
+});
 
 
 
